@@ -1,6 +1,6 @@
 <table
   mat-table
-  [dataSource]="cityService.filteredCities()"
+  [dataSource]="sortedCities()"
   matSort
   (matSortChange)="onSortUpdated($event)"
   class="mat-elevation-z8"

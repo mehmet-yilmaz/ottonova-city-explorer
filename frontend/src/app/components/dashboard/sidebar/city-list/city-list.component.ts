@@ -1,4 +1,11 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { CityService } from '../../../../services/city.service';
 import { MatSortModule, Sort } from '@angular/material/sort';
@@ -30,7 +37,46 @@ export class CityListComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  onSortUpdated(event: Sort) {}
+  cities = this.cityService.filteredCities;
+  sort = signal<Sort | null>(null);
+
+  sortedCities = computed(() => {
+    const cities = this.cities();
+    const currentSort = this.sort();
+
+    if (!currentSort || !currentSort.active || currentSort.direction === '') {
+      return cities; // No sorting applied, return as-is
+    }
+
+    return [...cities].sort((a, b) => {
+      const isAsc = currentSort.direction === 'asc';
+      switch (currentSort.active) {
+        case 'name':
+          return isAsc
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name);
+        case 'country':
+          return isAsc
+            ? a.country.localeCompare(b.country)
+            : b.country.localeCompare(a.country);
+        case 'continent':
+          return isAsc
+            ? a.continent.localeCompare(b.continent)
+            : b.continent.localeCompare(a.continent);
+        case 'population':
+          return isAsc
+            ? a.population - b.population
+            : b.population - a.population;
+        default:
+          return 0;
+      }
+    });
+  });
+
+  onSortUpdated(event: Sort): void {
+    this.sort.set(event);
+  }
+
   constructor() {}
   ngOnInit(): void {
     this.cityService.fetchCities();
@@ -44,14 +90,14 @@ export class CityListComponent implements OnInit {
   editCity(city: City): void {
     const dialogRef = this.dialog.open(CityFormComponent, {
       width: '40vw',
-      height: '100%',
-      data: city, // ✅ Pass the city data for editing
+      height: '90%',
+      data: city, // Pass the city data for editing
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('City updated, refreshing list.');
-        this.cityService.fetchCities(); // ✅ Refresh city list after update
+        this.cityService.fetchCities(); //  Refresh city list after update
       }
     });
   }
