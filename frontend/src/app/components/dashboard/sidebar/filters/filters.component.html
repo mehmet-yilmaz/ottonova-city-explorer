@@ -1,0 +1,70 @@
+<mat-card>
+  <mat-card-content>
+    <!-- Search Input -->
+    <mat-form-field appearance="outline">
+      <mat-label>Search City</mat-label>
+      <input
+        matInput
+        [(ngModel)]="cityService.searchTerm"
+        placeholder="Enter city name..."
+      />
+      <mat-icon matSuffix>search</mat-icon>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+    <div class="select-container">
+      <!-- Country Filter -->
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Country</mat-label>
+        <mat-select [(value)]="cityService.selectedCountry">
+          <mat-option value="">All</mat-option>
+          <mat-option
+            *ngFor="let country of cityService.countryList()"
+            [value]="country"
+          >
+            {{ country }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Continent Filter -->
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by Continent</mat-label>
+        <mat-select [(value)]="cityService.selectedContinent">
+          <mat-option value="">All</mat-option>
+          <mat-option
+            *ngFor="let continent of cityService.continentList()"
+            [value]="continent"
+          >
+            {{ continent }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="label-container">
+      <mat-label>Filter by Population</mat-label>
+    </div>
+    <!-- Population Filter -->
+    <!-- <mat-form-field appearance="outline"> -->
+    <mat-slider min="0" max="50000000" discrete [displayWith]="formatLabel">
+      <input
+        value="100000"
+        matSliderStartThumb
+        [value]="cityService.populationRange()[0]"
+        (input)="updatePopulationRange($event, 0)"
+      />
+      <input
+        value="10000000"
+        matSliderEndThumb
+        [value]="cityService.populationRange()[1]"
+        (input)="updatePopulationRange($event, 1)"
+      />
+    </mat-slider>
+    <!-- </mat-form-field> -->
+  </mat-card-content>
+  <div class="button-container">
+    <button mat-button extended (click)="resetFilters()">
+      <mat-icon>filter_alt_off</mat-icon>
+      Reset Filter
+    </button>
+  </div>
+</mat-card>

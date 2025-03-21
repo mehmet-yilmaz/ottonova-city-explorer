@@ -1,0 +1,29 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Population Per Continent</mat-card-title>
+    <ngx-charts-bar-vertical
+      [results]="populationChartData()"
+      [legend]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Continent"
+      yAxisLabel="Population"
+      [view]="[500, 250]"
+    >
+    </ngx-charts-bar-vertical>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Number Of City Per Continent</mat-card-title>
+    <ngx-charts-pie-chart
+      [results]="cityChartData()"
+      [legend]="false"
+      [labels]="true"
+      [doughnut]="true"
+      [view]="[500, 250]"
+    >
+    </ngx-charts-pie-chart>
+  </mat-card>
+</div>

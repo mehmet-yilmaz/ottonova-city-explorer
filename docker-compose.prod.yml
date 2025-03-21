@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_prod
+    restart: always
+    env_file:
+      - postgres/.env
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    networks:
+      - ottonova
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: backend_prod
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - backend/.env
+    networks:
+      - ottonova
+    ports:
+      - "3000:3000"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: frontend_prod
+    networks:
+      - ottonova
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+networks:
+  ottonova:
+    driver: bridge

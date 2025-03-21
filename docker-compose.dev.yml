@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_dev
+    restart: always
+    env_file:
+      - postgres/.env
+    networks:
+      - ottonova
+    ports:
+      - "5435:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: backend_dev
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - backend/.env
+    networks:
+      - ottonova
+    ports:
+      - "3100:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: >
+      sh -c "npm run build && npm run seed && npm run start:dev"
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: frontend_dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - ottonova
+    ports:
+      - "4201:4200"
+    depends_on:
+      - backend
+
+networks:
+  ottonova:
+    driver: bridge

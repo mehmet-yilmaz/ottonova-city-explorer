@@ -1,0 +1,87 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Node.js dependencies (Backend & Frontend)
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Build files (Compiled outputs)
+dist/
+backend/dist/
+frontend/dist/
+
+# Logs & Debugging Files
+*.log
+backend/*.log
+frontend/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment Variables
+.env
+backend/.env
+frontend/.env
+postgres/.env
+
+# IDE & OS-specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Angular Build Artifacts
+frontend/.angular/
+frontend/coverage/
+
+# NestJS Build & Cache Files
+backend/.cache/
+backend/.turbo/
+backend/coverage/
+
+# Git & Dependency Lock Files (Optional)
+package-lock.json
+yarn.lock
+backend/package-lock.json
+frontend/package-lock.json

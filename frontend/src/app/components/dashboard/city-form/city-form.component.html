@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>{{ data?.id ? "Edit City" : "Add New City" }}</h2>
+<form [formGroup]="cityForm">
+  <mat-form-field appearance="outline">
+    <mat-label>City Name</mat-label>
+    <input matInput formControlName="name" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Native Name</mat-label>
+    <input matInput formControlName="name_native" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Country</mat-label>
+    <input matInput formControlName="country" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Continent</mat-label>
+    <input matInput formControlName="continent" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Latitude</mat-label>
+    <input matInput type="number" formControlName="latitude" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Longitude</mat-label>
+    <input matInput type="number" formControlName="longitude" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Population</mat-label>
+    <input matInput type="number" formControlName="population" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Founded</mat-label>
+    <input matInput type="number" formControlName="founded" required />
+  </mat-form-field>
+
+  <h3>Landmarks</h3>
+  <div formArrayName="landmarks">
+    <div *ngFor="let landmarkCtrl of landmarks.controls; let i = index">
+      <mat-form-field appearance="outline">
+        <mat-label>Landmark {{ i + 1 }}</mat-label>
+        <input matInput [formControlName]="i" required />
+        <button mat-icon-button color="warn" (click)="removeLandmark(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-button color="primary" (click)="addLandmark()">
+    Add Landmark
+  </button>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveCity()"
+      [disabled]="cityForm.invalid"
+    >
+      {{ data?.id ? "Update City" : "Add City" }}
+    </button>
+  </div>
+</form>
