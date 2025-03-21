@@ -1,10 +1,6 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import {
-  BarChartModule,
-  PieChartModule,
-  LegendPosition,
-} from '@swimlane/ngx-charts';
+import { BarChartModule, PieChartModule } from '@swimlane/ngx-charts';
 import { CityService } from '../../../services/city.service';
 
 @Component({

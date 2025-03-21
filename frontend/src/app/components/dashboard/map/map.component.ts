@@ -3,13 +3,9 @@ import {
   Component,
   ElementRef,
   inject,
-  Input,
-  OnChanges,
   ViewChild,
 } from '@angular/core';
-import { City } from '../../../models/city.model';
 import { MapService } from '../../../services/map.service';
-import { CityService } from '../../../services/city.service';
 import { AddCityComponent } from './add-city/add-city.component';
 
 @Component({

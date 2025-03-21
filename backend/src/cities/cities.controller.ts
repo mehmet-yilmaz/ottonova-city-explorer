@@ -21,8 +21,6 @@ import {
 } from '@nestjs/swagger';
 import { CityStatsDto } from './dto/city-stats.dto';
 import { CityRankingsDto } from './dto/ciy-rankings.dto';
-// import { CityRankingsDto } from './dto/ciy-rankings.dto';
-// import { CityStatsDto } from './dto/city-stats.dto';
 
 @ApiTags('Cities')
 @Controller()

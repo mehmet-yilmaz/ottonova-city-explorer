@@ -53,7 +53,6 @@ export class CityService {
           this.countryList.set([
             ...new Set([...response.data.map((city) => city.country)]),
           ]);
-          // this.fetchCityStats();
         },
         error: (error) => console.error('❌ Error fetching cities:', error),
       });
@@ -90,14 +89,6 @@ export class CityService {
   addCity(city: any) {
     return this.http.post(`${this.apiUrl}`, city); // ✅ Return Observable
   }
-  // addCity(city: Partial<City>) {
-  //   return this.http.post<City>(this.apiUrl, city).subscribe({
-  //     next: (newCity) => {
-  //       this.cities.set([...this.cities(), newCity]); // ✅ Update local state
-  //     },
-  //     error: (error) => console.error('❌ Error adding city:', error),
-  //   });
-  // }
 
   /**
    * Updates an existing city.
@@ -112,19 +103,6 @@ export class CityService {
   deleteCity(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-  // updateCity(id: number, updatedCity: Partial<City>): void {
-  //   this.http.patch<City>(`${this.apiUrl}/${id}`, updatedCity).subscribe({
-  //     next: (updated) => {
-  //       this.cities.set(
-  //         this.cities().map((city) =>
-  //           city.id === id ? { ...city, ...updated } : city
-  //         )
-  //       );
-  //       console.log('✅ City updated:', updated);
-  //     },
-  //     error: (error) => console.error('❌ Error updating city:', error),
-  //   });
-  // }
 
   /**
    * ✅ Computed property for filtering cities dynamically.
