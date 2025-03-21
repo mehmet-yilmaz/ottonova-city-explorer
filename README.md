@@ -10,8 +10,6 @@ Ottonova City Explorer is a **full-stack web application** that allows users to 
 - **City Management**: Add, edit, and delete cities.
 - **Filtering & Sorting**: Dynamic filtering and sorting options.
 - **Charts & Analytics**: Visualize city statistics using ngx-charts.
-- **Dark/Light Mode**: User-selectable themes.
-- **Fully Responsive**: Optimized for all devices.
 - **Backend with NestJS & PostgreSQL**: REST API with Swagger documentation.
 - **State Management with Angular Signals**: Efficient UI updates.
 - **Dockerized Deployment**: Separate environments for development and production.
