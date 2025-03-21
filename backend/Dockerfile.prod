@@ -1,28 +1,34 @@
-# Stage 1: Build the app
-FROM node:22-alpine AS builder
+# Use official Node.js LTS image for production
+FROM node:20-alpine AS builder
+
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json (or yarn.lock)
 COPY package*.json ./
-RUN npm install --only=production
 
-# Copy source code
+# Install dependencies (including devDependencies for build)
+RUN npm ci
+
+# Copy the rest of the application files
 COPY . .
+
+# Build the NestJS application using TypeScript directly
 RUN npm run build
 
-# Stage 2: Run the app
-FROM node:18-alpine
+# Use a smaller runtime image for production
+FROM node:20-alpine AS runtime
+
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy only necessary production files
+# Copy only necessary files from the builder stage
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
-# Install only production dependencies
-RUN npm install --only=production
-
-# Expose API port
+# Expose the application port (ensure this matches your NestJS port)
 EXPOSE 3000
 
-# Run the application
+# Start the application
 CMD ["node", "dist/main"]
